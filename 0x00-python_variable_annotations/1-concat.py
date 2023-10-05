@@ -1,4 +1,4 @@
-#!/usr/bin/env puthon3
+#!/usr/bin/env python3
 """ concat strings """
 
 
