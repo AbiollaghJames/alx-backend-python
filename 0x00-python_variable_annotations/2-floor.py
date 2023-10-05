@@ -4,6 +4,6 @@
 import math
 
 
-def floor(n: float) -> inti:
+def floor(n: float) -> int:
     """ return n floor """
     return math.floor(n)
