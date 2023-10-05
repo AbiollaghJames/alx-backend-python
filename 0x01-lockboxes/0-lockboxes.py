@@ -1,7 +1,9 @@
 #!/usr/bin/python3
+""" function that checks for unlocked boxes """
 
 
 def canUnlockAll(boxes):
+    """returns True if key unlocks """
     unlocked = [False] * len(boxes)
     unlocked[0] = True
 
