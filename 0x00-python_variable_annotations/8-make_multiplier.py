@@ -4,10 +4,10 @@
 from typing import Callable
 
 
-def make_multiplier(multiplier: float) -> Callable[[float], floait]:
-    """ returns a function, output is Callable """
+def make_multiplier(multiplier: float) -> Callable[[float], float]:
+    """ returns a Callable function """
     def multiplier_func(x: float) -> float:
-        """ return x multiplie by multiplier """
+        """ return x multiplied by multiplier """
         return x * multiplier
 
     return multiplier_func
