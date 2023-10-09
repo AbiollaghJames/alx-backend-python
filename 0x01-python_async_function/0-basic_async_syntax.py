@@ -3,9 +3,10 @@
 
 import asyncio
 import random
+from typing import Union
 
 
-async def wait_random(max_delay=10):
+async def wait_random(max_delay: Union[int, float] = 10) -> float:
     """ coroutine that returns max_delay """
 
     if isinstance(max_delay, (int, float)):
