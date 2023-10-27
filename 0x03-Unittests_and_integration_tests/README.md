@@ -15,3 +15,11 @@ Integration tests will test interactions between every part of your code.
 Execute your tests with
 
 `$ python -m unittest path/to/test_file.py`
+
+*Resources*
+
+- unittest — Unit testing framework[https://docs.python.org/3/library/unittest.html]
+- unittest.mock — mock object library
+- How to mock a readonly property with mock?
+- parameterized
+- Memoization
