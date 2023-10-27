@@ -18,7 +18,7 @@ Execute your tests with
 
 *Resources*
 
-- unittest — Unit testing framework(https://docs.python.org/3/library/unittest.html)
+- unittest — Unit testing framework <https://docs.python.org/3/library/unittest.html>
 - unittest.mock — mock object library
 - How to mock a readonly property with mock?
 - parameterized
