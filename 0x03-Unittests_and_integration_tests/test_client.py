@@ -109,3 +109,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """
         test public_with_license
         """
+
+
+if __name__ == "__main__":
+    unittest.main()
