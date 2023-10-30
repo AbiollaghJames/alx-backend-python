@@ -6,7 +6,7 @@ TestAccessNestedMap module
 import unittest
 from unittest.mock import patch, Mock
 from parameterized import parameterized
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -22,7 +22,7 @@ class TestAccessNestedMap(unittest.TestCase):
     def test_access_nested_map(self, nested_map, path, expected_result):
         """ test function """
         self.assertEqual(access_nested_map(nested_map, path), expected_result)
-    
+
     @parameterized.expand([
         ({}, ("a",), KeyError),
         ({"a": 1}, ("a", "b"), KeyError)
@@ -52,8 +52,38 @@ class TestGetJson(unittest.TestCase):
 
         with patch('requests.get', return_value=mock_reponse) as mock_get:
             result = get_json(test_url)
-        
+
         self.assertEqual(result, test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """
+    Memoization module
+    """
+    def test_memoize(self):
+        """
+        Test that when calling a_property twice,
+        the correct result is returned but a_method
+        is only called once using assert_called_once
+        """
+
+        class TestClass:
+            """Test module"""
+
+            def a_method(self):
+                """a_method returns 42"""
+                return 42
+
+            @memoize
+            def a_property(self):
+                """returns a_method"""
+                return self.a_method()
+
+        with patch.object(TestClass, 'a_method') as mock_get:
+            test_class = TestClass()
+            test_class.a_property()
+            test_class.a_property()
+            mock_get.assert_called_once()
 
 
 if __name__ == "__main__":
