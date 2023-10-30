@@ -86,11 +86,11 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         setupClass should mock requests.get to
         return example payloads found in the fixtures
         """
-        client.get_patcher = patch('requests.get', side_effect=[
+        cls.get_patcher = patch('requests.get', side_effect=[
             cls.org_payload,
             cls.repos_payload
         ])
-        client.mock_get = cls.get_patcher.start()
+        cls.mock_get = cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
