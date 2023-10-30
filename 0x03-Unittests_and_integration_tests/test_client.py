@@ -70,3 +70,38 @@ class TestGithubOrgClient(unittest.TestCase):
             GithubOrgClient.has_license(licens, license_key),
             expected_result
         )
+
+
+@parameterized.expand([
+    "org_payload", "repos_payload",
+    "apache2_repos"],
+)
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """
+    TestIntegrationGithubOrgClient module
+    """
+    @classmethod
+    def setUpClass(cls):
+        """
+        setupClass should mock requests.get to
+        return example payloads found in the fixtures
+        """
+        client.get_patcher = patch('requests.get', side_effect=[
+            cls.org_payload,
+            cls.repos_payload
+        ])
+        client.mock_get = cls.get_patcher.start()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.get_patcher.stop()
+
+    def test_public_repos(self):
+        """
+        test public_repos
+        """
+
+    def test_public_repos_with_license(self):
+        """
+        test public_with_license
+        """
