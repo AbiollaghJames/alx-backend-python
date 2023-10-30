@@ -27,7 +27,7 @@ class TestGithubOrgClient(unittest.TestCase):
         class_instance = GithubOrgClient(org_name)
         class_instance.org()
         mock_res.assert_called_once_with(endpoint)
-    
+
     @parameterized.expand([
         ("some-url", {'repos_url': 'http://some_url.com'}),
     ])
@@ -40,3 +40,23 @@ class TestGithubOrgClient(unittest.TestCase):
         ):
             mock_res = GithubOrgClient(name)._public_repos_url
             self.assertEqual(mock_res, res.get("repos_url"))
+
+    @patch("client.get_json")
+    def test_public_repos(self, mock_get):
+        """
+        tests public_repos
+        """
+        payload = [{"name": "google"}, {"name": "facebook"}]
+        mock_get.return_value = payload
+
+        with patch(
+            "client.GithubOrgClient._public_repos_url",
+            new_callable=PropertyMock
+        ) as mock:
+            mock.return_value = "Hello"
+            response = GithubOrgClient("test").public_repos()
+
+            self.assertEqual(response, ["google", "facebook"])
+
+            mock.assert_called_once()
+            mock_get.assert_called_once()
