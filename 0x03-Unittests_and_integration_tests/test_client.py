@@ -3,9 +3,10 @@
 TestGithubOrgClient module
 """
 import unittest
-from parameterized import parameterized
+from parameterized import parameterized, parameterized_class
 from unittest.mock import patch, Mock, PropertyMock
 from client import GithubOrgClient
+from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
@@ -72,9 +73,10 @@ class TestGithubOrgClient(unittest.TestCase):
         )
 
 
-@parameterized.expand([
-    "org_payload", "repos_payload",
-    "apache2_repos"],
+@parameterized_class([
+    'org_payload', 'repos_payload',
+    'expected_repos', 'apache2_repos'],
+    TEST_PAYLOAD
 )
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """
@@ -83,26 +85,25 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """
-        setupClass should mock requests.get to
-        return example payloads found in the fixtures
+        mock requests.get to return
+        example payloads found in the fixtures
         """
         cls.get_patcher = patch('requests.get', side_effect=[
-            cls.org_payload,
-            cls.repos_payload
+            cls.org_payload, cls.repos_payload
         ])
-        cls.mock_get = cls.get_patcher.start()
+        cls.mocked_get = cls.get_patcher.start()
 
     @classmethod
     def tearDownClass(cls):
         """
         tearDownClass class method
-        to stop the patcher.
+        to stop the patcher
         """
         cls.get_patcher.stop()
 
     def test_public_repos(self):
         """
-        test public_repos
+        test_public_repos
         """
 
     def test_public_repos_with_license(self):
